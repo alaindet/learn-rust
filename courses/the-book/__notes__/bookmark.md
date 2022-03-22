@@ -1,2 +1,2 @@
-7
-Hello, Cargo!
+26
+Allowing Multiple Guesses with Looping
