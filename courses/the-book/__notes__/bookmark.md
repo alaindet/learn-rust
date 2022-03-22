@@ -1,2 +1,2 @@
-26
-Allowing Multiple Guesses with Looping
+28
+Handling Invalid Input
