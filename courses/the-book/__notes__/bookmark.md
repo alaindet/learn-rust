@@ -1,2 +1,2 @@
-36
-nteger Types
+43
+Functions
