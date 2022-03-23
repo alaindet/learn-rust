@@ -28,6 +28,7 @@
 ## Expressions and statements
 - An **expression** is a value that can be explicit or the result of some operations (ex.: 3 or 2+1)
 - Expressions include function calls, scope declarations, macro calls etc
+- **BLOCKS OF CODE EVALUATE TO THE LAST EXPRESSION IN THEM**
 - A **statement** is an instruction to execute that can contain expressions, does not return a value or whose value is not used
 - Functions can have multiple statements, but only one optional expression
 - **NOTE**: Assignment is a pure statement, meaning no value is returned

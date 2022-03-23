@@ -16,5 +16,5 @@ fn main() {
     let mut y = 1;
     y = y + 1;
     y = y * 2;
-    println!("Y: {}", x); // Y: 4
+    println!("Y: {}", y); // Y: 4
 }

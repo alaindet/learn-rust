@@ -18,4 +18,26 @@ fn main() {
 }
 ```
 
+- An `if` is an expression, meaning you could do something (rather silly) like
+  ```rust
+  let should_i = true;
+  let n = if should_i {
+      10
+  } else {
+      20
+  }; // <-- Mind this
+  // n = 10
+  ```
+
+- When using an if as an expression, values evaluated from any arm **must be of the same type**
+  ```rust
+  let sure = true;
+  let a = if sure {
+      5
+  } else {
+      6 // GOOD
+      6.0 // BAD
+  }
+  ```
+
 ## Loops
