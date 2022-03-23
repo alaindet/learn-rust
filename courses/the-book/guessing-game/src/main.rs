@@ -7,7 +7,7 @@ fn main() {
     println!("Guessing Game");
 
     loop {
-        println!("Please enter a number between 1 and 100: ");
+        println!("\nPlease enter a number between 1 and 100: ");
 
         // gen_range(a, b) INCLUDES a but EXCLUDES b
         // TODO: Snake case enforced?
@@ -32,11 +32,22 @@ fn main() {
             .read_line(&mut guess)
             .expect("Failed to read line");
 
+        if "exit" == guess.trim() {
+            println!("Ok, bye!");
+            break;
+        }
+
         // NOTE: This declaration "shadows" the previous one. Useful to cast values
         // The guess is now parsed to an unsigned 32-bit integer (u32)
         // The ": u32" part is an **annotation** suggesting Rust to parse to a u32 type
-        let guess: u32 = guess.trim().parse()
-            .expect("Please type a number!");
+        // This ignores non-parsable inputs and continues looping
+        let guess: u32 = match guess.trim().parse() {
+            Ok(num) => num,
+            Err(_) => {
+                println!("ERROR: Please provide a valid number");
+                continue;
+            },
+        };
 
         println!("You picked {}", guess);
 
