@@ -1,10 +1,12 @@
-fn main() {
+fn variables_declaration_example() {
     let immutable_var = 1;
     let mut mutable_var = 2;
     mutable_var = 3;
     let _intentionally_not_used_var = 3; // Note the underscore
     println!("immut: {}, mut: {}", immutable_var, mutable_var); // immut: 1, mut: 3
+}
 
+fn shadowing_variables_example() {
     // Shadowing (preserves immutability, gives error on "simple" assignments)
     let x = 1;
     let x = x + 1;
@@ -17,4 +19,9 @@ fn main() {
     y = y + 1;
     y = y * 2;
     println!("Y: {}", y); // Y: 4
+}
+
+fn main() {
+    variables_declaration_example();
+    shadowing_variables_example();
 }
