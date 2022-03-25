@@ -78,3 +78,105 @@ println!("s3: {}, s4: {}", s3, s4); // <-- This now works
   - Booleans
   - `char` types
   - Tuples containing only types listed here
+
+## Functions
+
+Example 1
+
+```rust
+fn main() {
+    let s = String::from("hello"); // 1. s comes into scope
+    take_ownership(s); // 2. moves s value to the argument s_arg
+    // println!("s: {}", s); // 4b. This is not possible, s was moved to s_arg
+    let a = 42; // 5. a comes into play
+    make_copy(a); // 6. a gets copied to a_arg argument
+} // 9. s and a are dropped
+
+fn take_ownership(s_arg: String) {
+    // 3. s_arg now owns the value of s from main()
+    println!("s_arg: {}", s_arg);
+} // 4. s_arg goes out of scope
+
+fn make_copy(a_arg: i32) {
+    // 7. a_arg gets a copy of a
+    println!("a_arg: {}", a_arg);
+} // 8. a_arg is dropped
+```
+
+Example 2
+
+```rust
+fn main() {
+    let s1 = String::from("hello");
+    let len = calculate_length(&s1);
+    println!("s1: {}, len: {}", s1, len);
+}
+
+fn calculate_length(s: &String) -> usize {
+    s.len()
+}
+```
+
+## Borrowing
+
+```rust
+fn main() {
+    let s1 = String::from("hello");
+    let len = calculate_length(&s1);
+    println!("The length of '{}' is {}.", s1, len);
+}
+
+fn calculate_length(s: &String) -> usize {
+    s.len()
+}
+```
+
+- Passing a **reference** to a function does not *move* ownership of the value
+- This means that when the references goes out of scope, it doesn't drop the value
+- **borrowing** is when a function has references in function parameters and uses values without owning them
+- NOTE: borrowing values makes them **immutable by default** unless specified via `mut`
+
+### Borrowing and changing values
+```rust
+fn main() {
+    let mut s1 = String::from("hello"); // <-- Notice mut
+    change_string(&mut s1); // <-- Notice mut
+    let len = calculate_length(&s1); // <-- Just reading, not mut needed
+    println!("The length of '{}' is {}.", s1, len);
+    // The length of 'hello world' is 11
+}
+
+fn change_string(s: &mut String) { // <-- Notice mut
+    s.push_str(" world");
+}
+
+fn calculate_length(s: &String) -> usize {
+    s.len()
+}
+```
+
+- Keep in mind that mutable and immutable references cannot cohexist for the same variable, they must be either ALL mutable or ALL immutable because of consistency and thread safety
+
+```rust
+let r1 = &s;
+let r2 = &s;
+let r3 = &mut s; // <-- ERROR: Imma stop ya right there sir!
+```
+
+## References
+- Rust forces you to take care of pointers before their reference value gets out of scope, giving compile errors otherwise
+- Enforced rules are
+  - You can only have *either* **one mutable** reference to a value or **infinite immutable** references to a value
+  - References cannot point to dropped values
+  ```rust
+  // Good
+  fn this_is_good() -> String {
+    let s = String::from("hello");
+    s // This moves ownership to return point, it's ok
+  }
+  // Bad
+  fn this_is_bad() -> &String {
+    let s = String::from("hello");
+    &s // This references a value that is about to drop
+  }
+  ```
