@@ -1,2 +1,2 @@
-83
-Using Structs to structure related data
+88
+An Example Program Using Structs
